@@ -43,8 +43,7 @@ module.exports = {
 https://webpack.js.org/configuration/  
 
 
-Запустить сборку: `npx webpack`  
-Запустить непрерывную сборку: `npx webpack --watch`  
+
 Если в пакет `package.json` в объект `scripts` добавить строку `"build" : "webpack"`, то запускать сборку можно командой `npm run build`  
 
 Восстановить модули по данным package.json могут команды:  
@@ -54,22 +53,49 @@ https://webpack.js.org/configuration/
 Установка yarn:  
 https://yarnpkg.com/getting-started/install  
 
+## Для работы DevServer необходимо собирать html файл в папке dist
+Ставим шаблонизатор:  
+`npm i html-webpack-plugin --save-dev`  
+Добавляем в конфиг константу:  
+`const HtmlWebpackPlugin = require('html-webpack-plugin');` 
+В конфиг в plugins:  
+```
+new HtmlWebpackPlugin({
+            template: "./src/index.pug",
+            filename: "index.html"
+        }),
+```  
+
+Ставим сам шаблонизатор pug:
+`npm i pug pug-loader --save-dev`
+В конфиге в rules: создаем новое правило использования файлов .pug:
+```
+{
+    test: /\.pug$/,
+    loader: 'pug-loader',
+    options: {pretty: true}
+}
+```
+
+
+
+
+
 
 ## Установка DevServer
 `npm install webpack-dev-server --save-dev`  
-В packade.json добавляем скрипт чтобы его (сервер) использовать:  
-
-npm run start: dev
+В packade.json добавляем скрипт для запуска с собственной конфигурацией (npm run start:dev):  
+`"start:dev": "webpack serve --config config/webpack.dev.js"`
 
 Конфиг:  
 ```
 
 ```
-Запуск сервера:  
-`npx webpack-dev-server`  
-
-
-
+Восстановить модули: `npm install`  
+Запустить сборку: `npx webpack`  
+Запустить непрерывную сборку: `npx webpack --watch`   
+Запуск сервера с конфигом из корня: `npx webpack-dev-server`  
+Запуск сервера командой из packade.json: `npm run start:dev`  
 
 
 [//]: # (# Text // как <h1> ### Text // как <h3>)
