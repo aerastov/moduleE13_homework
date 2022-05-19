@@ -1,4 +1,30 @@
-document.write('Test Webpack<br>');
+
 import './style.css';
 import {sum} from './math';
-document.write('sum = ' + sum(10, 20));
+
+const div_sum = document.querySelector('.sum');
+div_sum.innerHTML = 'Test Webpack<br>';
+div_sum.innerHTML += 'sum = ' + sum(10, 20);
+
+
+// Получение данных с JSON сервера
+const btn = document.querySelector('.btn');
+const div_jsonData = document.querySelector('.jsonData');
+
+function getJson() {
+  const result = fetch('http://localhost:3000/posts/')
+    .then(response => response.json())
+    .then(json => {
+        div_jsonData.innerHTML = '';
+        for (let item of json.values()) {
+            console.log(item);
+            div_jsonData.innerHTML += '<br>';
+            for (let elem in item) {
+                console.log(elem, '=', item[elem]);
+                const newString = `<b>${elem} = ${item[elem]}</b><br>`;
+                div_jsonData.innerHTML += newString;
+            };
+        };
+    });
+};
+btn.addEventListener("click", getJson)

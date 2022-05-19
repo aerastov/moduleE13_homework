@@ -161,6 +161,37 @@ optimization: {
 },
 ```
 
+### Установка json-server
+Установим: `npm i -g json-server`   
+Создаем в корне файл database.json  
+Добавляем в него нужные объекты и свойства (пример):
+```
+{
+  "posts": [
+    { "id": 1, "title": "json-server", "author": "typicode" }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "profile": { "name": "typicode" }
+}
+```
+Запустим наш сервер: `json-server --watch database.json`  
+
+Если будет ошибка безопасности, нужно разрешить в Windows выполнение скриптов PowerShell:  
+Для этого открываем консоль PowerShell от имени администратора  
+Проверка: `Get-ExecutionPolicy` // ответ Restricted (Запрещено)
+Отменяем: `Set-ExecutionPolicy unrestricted`
+Проверка: `Get-ExecutionPolicy` // ответ Unrestricted (Разрешено)
+Запретить: `Set-ExecutionPolicy Restricted`  
+Затем в настройках Windows 11 Конфиденциальность и защита - Для разработчиков - PowerShell применить флажёк, 
+разрешающий выполнение сценариев
+
+
+
+
+
+
 
 Восстановить модули: `npm install`  
 Запустить сборку: `npx webpack` 

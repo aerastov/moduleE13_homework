@@ -1,1 +1,1 @@
-(()=>{"use strict";document.write("Test Webpack<br>"),document.write("sum = "+(10+20))})();
+(()=>{"use strict";const e=document.querySelector(".sum");e.innerHTML="Test Webpack<br>",e.innerHTML+="sum = "+(10+20);const n=document.querySelector(".btn"),t=document.querySelector(".jsonData");n.addEventListener("click",(function(){fetch("http://localhost:3000/posts/").then((e=>e.json())).then((e=>{t.innerHTML="";for(let n of e.values()){console.log(n),t.innerHTML+="<br>";for(let e in n){console.log(e,"=",n[e]);const o=`<b>${e} = ${n[e]}</b><br>`;t.innerHTML+=o}}}))}))})();
