@@ -1,4 +1,3 @@
-
 import './style.css';
 import {sum} from './math';
 
@@ -12,7 +11,7 @@ const btn = document.querySelector('.btn');
 const div_jsonData = document.querySelector('.jsonData');
 
 function getJson() {
-  const result = fetch('http://localhost:3000/posts/')
+  fetch('http://localhost:3000/posts/')
     .then(response => response.json())
     .then(json => {
         div_jsonData.innerHTML = '';
@@ -23,8 +22,8 @@ function getJson() {
                 console.log(elem, '=', item[elem]);
                 const newString = `<b>${elem} = ${item[elem]}</b><br>`;
                 div_jsonData.innerHTML += newString;
-            };
-        };
+            }
+        }
     });
-};
-btn.addEventListener("click", getJson)
+}
+btn.addEventListener('click', getJson);

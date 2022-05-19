@@ -187,6 +187,35 @@ optimization: {
 Затем в настройках Windows 11 Конфиденциальность и защита - Для разработчиков - PowerShell применить флажёк, 
 разрешающий выполнение сценариев
 
+### Установка линтера
+Установим: `npm i eslint --save-dev`  
+Установим файл конфигурации: `npx eslint --init`  
+После запустить линтер для любого файла из каталога следующим образом: `npx eslint yourfile.js`  
+Добавим автозапуск линтера при сборке проекта,  
+установим `npm i eslint-loader --save-dev`
+Добавим правило:
+```
+{
+    test: /\.js$/,
+    exclude: './node_modules',
+    use: 'eslint-loader',
+}
+```
+### А теперь CSS lint!
+Установим: `npm i stylelint stylelint-webpack-plugin --save-dev`
+Установим: `npm i stylelint --save-dev`
+Константа: `const StylelintPlugin = require('stylelint-webpack-plugin');`
+В плагины: `new StylelintPlugin(options)`
+
+Установим: `npm i stylelint-config-standard`
+Файл в корень: .stylelintrc
+`{
+ "extends": "stylelint-config-standard"
+}`
+Исключить папку - файл в корень .eslintignore `/node_modules`
+
+Готово!   
+
 
 
 

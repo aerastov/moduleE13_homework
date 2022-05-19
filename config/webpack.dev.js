@@ -1,6 +1,8 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const StylelintPlugin = require('stylelint-webpack-plugin');
+
 
 module.exports = {
     mode: 'development',
@@ -18,6 +20,7 @@ module.exports = {
             template: "./src/index.pug",
             filename: "index.html"
         }),
+        new StylelintPlugin({configFile: path.join(__dirname, '../.stylelintrc'),}),
     ],
 
     module: {
@@ -38,6 +41,11 @@ module.exports = {
                 test: /\.pug$/,
                 loader: 'pug-loader',
                 options: {pretty: true}
+            },
+            {
+                test: /\.js$/,
+                exclude: '/node_modules/',
+                use: 'eslint-loader',
             }
         ]
     }
