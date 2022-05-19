@@ -162,14 +162,14 @@ optimization: {
 ```
 
 
-
 Восстановить модули: `npm install`  
 Запустить сборку: `npx webpack` 
 Запустить сборку кастомной командой (прописанной в packade.json) `npm run build`
 Запустить непрерывную сборку: `npx webpack --watch`   
 Запуск сервера с конфигом из корня: `npx webpack-dev-server`  
-Запуск сервера с конфигом dev командой из packade.json: `npm run start:dev`  
+Запуск сервера с конфигом dev командой из packade.json: `npm run start:dev_server`  
 Запуск сборки с конфигом prod командой из packade.json: `npm run start:prod`
+Запуск сборки с конфигом dev командой из packade.json: `npm run start:dev`
 
 start:dev": "webpack serve --config config/webpack.dev.js
 

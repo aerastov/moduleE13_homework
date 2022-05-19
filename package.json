@@ -4,10 +4,10 @@
   "description": "Home work module E13",
   "main": "index.js",
   "scripts": {
-    "build" : "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "webpack serve --config config/webpack.dev.js",
-    "start:prod": "webpack --config config/webpack.prod.js --watch"
+    "build": "webpack",
+    "start:dev_server": "webpack serve --config config/webpack.dev_server.js",
+    "start:prod": "webpack --config config/webpack.prod.js --watch",
+    "start:dev": "webpack --config config/webpack.dev.js --watch"
   },
   "repository": {
     "type": "git",
