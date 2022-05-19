@@ -1,1 +1,1 @@
-(()=>{"use strict";document.write("Test Webpack<br>"),document.write("sum = 20")})();
+(()=>{"use strict";document.write("Test Webpack<br>"),document.write("sum = "+(10+10))})();

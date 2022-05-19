@@ -77,25 +77,101 @@ new HtmlWebpackPlugin({
 }
 ```
 
-
-
-
-
-
 ## Установка DevServer
 `npm install webpack-dev-server --save-dev`  
 В packade.json добавляем скрипт для запуска с собственной конфигурацией (npm run start:dev):  
 `"start:dev": "webpack serve --config config/webpack.dev.js"`
 
-Конфиг:  
+Конфиг webpack.dev.js:  
+```
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    mode: 'development',
+    entry: {
+        main: path.resolve(__dirname, '../src/index.js'),
+    },
+    devtool: 'inline-source-map',
+    devServer: {
+        static: {
+            directory: path.resolve(__dirname, "../dist"),
+            // directory: "../dist",
+        },
+        // historyApiFallback: true,
+        hot: true,
+        port: 8080,
+        open: true,
+    },
+    output: {
+        path: path.resolve(__dirname, '../dist'),
+        filename: 'main.js',
+    },
+    plugins: [
+        new MiniCssExtractPlugin(),
+        new HtmlWebpackPlugin({
+            template: "./src/index.pug",
+            filename: "index.html"
+        }),
+    ],
+    module: {
+        rules: [
+            { 
+                test: /\.css$/,
+                use: [
+                        {
+                            loader: MiniCssExtractPlugin.loader,
+                            options: {
+                            esModule: true,
+                            },
+                        },
+                    'css-loader',
+                ], 
+            },
+            {
+                test: /\.pug$/,
+                loader: 'pug-loader',
+                options: {pretty: true}
+            }
+        ]
+    }
+  };
 ```
 
+### Минификация файлов для mode: 'production'
+По умолчанию в production mode вебпак минифицирует код. Для этого используется TerserPlugin.  
+CSS код тоже стоит минифицировать. Для этого можно использовать плагин css-minimizer-webpack-plugin.
+Его надо будет указать в optimization.minimizer. Настройка optimization.minimizer отменяет все значения 
+по умолчанию, поэтому если определили плагин для минификации CSS, нужно указать, какой плагин будет отвечать 
+за минификацию JS.  
+Ставим `npm i terser-webpack-plugin  --save-dev`  
+Ставим `npm i css-minimizer-webpack-plugin --save-dev`  
+Прописываем константы:  
+`const TerserWebpackPlugin = require('terser-webpack-plugin');`  
+`const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");`  
+Прописываем их в plugins:  
+`new CssMinimizerPlugin(),`  
+`new TerserWebpackPlugin(),`  
+И добавим в module.exports модуль:
 ```
+optimization: {
+    minimize: true,
+    minimizer: [new CssMinimizerPlugin({}) , new TerserWebpackPlugin({})],
+},
+```
+
+
+
 Восстановить модули: `npm install`  
-Запустить сборку: `npx webpack`  
+Запустить сборку: `npx webpack` 
+Запустить сборку кастомной командой (прописанной в packade.json) `npm run build`
 Запустить непрерывную сборку: `npx webpack --watch`   
 Запуск сервера с конфигом из корня: `npx webpack-dev-server`  
-Запуск сервера командой из packade.json: `npm run start:dev`  
+Запуск сервера с конфигом dev командой из packade.json: `npm run start:dev`  
+Запуск сборки с конфигом prod командой из packade.json: `npm run start:prod`
+
+start:dev": "webpack serve --config config/webpack.dev.js
 
 
 [//]: # (# Text // как <h1> ### Text // как <h3>)
