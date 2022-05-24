@@ -24,6 +24,7 @@ function getJson() {
                 div_jsonData.innerHTML += newString;
             }
         }
-    });
+    })
+    .catch(() => window.alert(`Нет связи с json-server! Запустите сервер командой:\n json-server --watch database.json`));
 }
 btn.addEventListener('click', getJson);
