@@ -216,8 +216,11 @@ optimization: {
 
 Готово!   
 
-
-
+### Настраиваем git-хуки
+Установим: `npm i husky --save-dev`
+Добавим необходимые компоненты: `npm set-script prepare "husky install"`
+Запустим компонент: `npm run prepare`
+Добавляем хук: `npx husky add .husky/pre-commit "npm run lint"`
 
 
 
